@@ -41,7 +41,7 @@ fn count_unanimous_answers(answer_groups: &Vec<Vec<String>>) -> usize {
                 .map(|s| s.trim().chars().collect::<HashSet<_>>())
         })
         .map(|sets| {
-            sets.fold(('a'..'z').collect::<HashSet<_>>(), |a, b| {
+            sets.fold(('a'..='z').collect::<HashSet<_>>(), |a, b| {
                 a.intersection(&b).cloned().collect()
             })
         })

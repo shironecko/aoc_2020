@@ -66,7 +66,7 @@ mod tests {
         ensure_answers(&mut days[2], 272, 3898725600);
         ensure_answers(&mut days[3], 256, 198);
         ensure_answers(&mut days[4], 864, 739);
-        //ensure_answers(&mut days[5], 6782, ???); // can't seem to figure out what's wrong with my solution here...
+        ensure_answers(&mut days[5], 6782, 3596);
         //ensure_answers(&mut days[6], ???, ???); // TODO
         //ensure_answers(&mut days[7], ???, ???); // TODO
         //ensure_answers(&mut days[8], ???, ???); // TODO
