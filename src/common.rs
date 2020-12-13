@@ -1,5 +1,8 @@
 use itertools::Itertools;
 
+pub use crate::parser_combinator::Parser;
+pub use crate::parser_combinator::*;
+
 pub type AocPuzzleAnswer = usize;
 
 pub trait AocDay {
