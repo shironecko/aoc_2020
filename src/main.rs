@@ -68,7 +68,7 @@ mod tests {
         ensure_answers(&mut days[3], 256, 198);
         ensure_answers(&mut days[4], 864, 739);
         ensure_answers(&mut days[5], 6782, 3596);
-        //ensure_answers(&mut days[6], ???, ???); // TODO
+        ensure_answers(&mut days[6], 224, 1488);
         //ensure_answers(&mut days[7], ???, ???); // TODO
         //ensure_answers(&mut days[8], ???, ???); // TODO
     }

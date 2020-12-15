@@ -1,6 +1,8 @@
 use crate::common::*;
 use std::collections::HashMap;
 
+const GOLDEN_COLOR: &str = "shiny gold";
+
 #[derive(Default)]
 pub struct Day {
     bags_spec: HashMap<String, Vec<BagChild>>,
@@ -16,11 +18,40 @@ impl AocDay for Day {
     }
 
     fn puzzle_00(&self) -> Option<AocPuzzleAnswer> {
-        None
+        let answer = self
+            .bags_spec
+            .iter()
+            .map(|x| self.will_contain_golden_bag(x.0))
+            .filter(|x| *x)
+            .count();
+
+        Some(answer)
     }
 
     fn puzzle_01(&self) -> Option<AocPuzzleAnswer> {
-        None
+        Some(self.count_contained_bags(GOLDEN_COLOR))
+    }
+}
+
+impl Day {
+    fn will_contain_golden_bag(&self, color: &str) -> bool {
+        let contents = &self.bags_spec[color];
+        if contents.iter().any(|x| x.1 == GOLDEN_COLOR) {
+            true
+        } else {
+            contents
+                .iter()
+                .map(|x| self.will_contain_golden_bag(&x.1))
+                .any(|x| x)
+        }
+    }
+
+    fn count_contained_bags(&self, color: &str) -> AocPuzzleAnswer {
+        let contents = &self.bags_spec[color];
+        contents
+            .iter()
+            .map(|x| x.0 as AocPuzzleAnswer * (self.count_contained_bags(&x.1) + 1))
+            .sum()
     }
 }
 
@@ -58,7 +89,10 @@ fn bag_parser<'a>() -> impl Parser<'a, BagContents> {
     map(
         pair(
             left(color_parser(), match_literal("bags contain ")),
-            children_parser(),
+            either(
+                children_parser(),
+                map(match_literal("no other bags."), |_| Vec::new()),
+            ),
         ),
         |(color, children)| BagContents { color, children },
     )
